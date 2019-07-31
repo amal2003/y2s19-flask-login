@@ -9,6 +9,8 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
+    username = Column(String)
+    fav_food = Column(String)
     #what else does a user account need?
     password_hash = Column(String)
 

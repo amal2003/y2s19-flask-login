@@ -9,14 +9,19 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 def add_user(name,secret_word):
-    """Add a user to the DB."""
-    user = User(username=name)
-    #there is a line of code missing here, what else does a user need?
-    session.add(user)
-    session.commit()
+	#user_object = User(username=name,  password=secret_word)
+	"""Add a user to the DB."""
+	user = User(username=name)
+	user.hash_password(secret_word)
+	#there is a line of code missing here, what else does a user need?
+	session.add(user)
+	session.commit()
 
 def get_user(username):
     """Find the first user in the DB, by their username."""
     return session.query(User).filter_by(username=username).first()
-
+def update_food(username, food):
+	user=get_user(username)
+	user.fav_food=food
+	session.commit()
 
